@@ -79,7 +79,13 @@ button {
 }
 </style>
 </head>
-
+<style>
+  img {
+  pointer-events: none;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+  
 <body>
 
 <h1>🎆 Pháo Hoa Nước </h1>
@@ -175,6 +181,9 @@ function check() {
     document.querySelectorAll(".slot").forEach(s => s.classList.add("correct"));
   }
 }
+</script>
+<script>
+document.addEventListener("contextmenu", e => e.preventDefault());
 </script>
 
 </body>
