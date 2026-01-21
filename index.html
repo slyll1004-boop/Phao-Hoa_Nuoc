@@ -80,12 +80,12 @@ button {
 </style>
 </head>
 <style>
-  img {
-  pointer-events: none;
+img {
+  -webkit-touch-callout: none; /* chặn menu giữ ảnh trên Android/iOS */
   -webkit-user-drag: none;
   user-select: none;
 }
-  
+</style>
 <body>
 
 <h1>🎆 Pháo Hoa Nước </h1>
@@ -181,9 +181,6 @@ function check() {
     document.querySelectorAll(".slot").forEach(s => s.classList.add("correct"));
   }
 }
-</script>
-<script>
-document.addEventListener("contextmenu", e => e.preventDefault());
 </script>
 
 </body>
