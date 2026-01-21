@@ -127,15 +127,15 @@ button {
     <div class="label">Dấu bằng</div>
   </div>
 
-  <div class="item" draggable="true" data-value="tablet">
+  <div class="item" draggable="true" data-value="firework">
    <img src="phao-hoa_nuoc.jpg">
     <div class="label">Pháo hoa nước</div>
   </div>
   
 <!-- Ô SẮP XẾP -->
 <div id="slots">
-  <div class="slot"></div><div class="slot"></div><div class="slot"></div><div
-  <div class="slot"></div><div class="slot"></div><div class="slot"></div><div
+  <div class="slot"></div><div class="slot"></div><div class="slot"></div>
+  <div class="slot"></div><div class="slot"></div><div class="slot"></div>
   <div class="slot"></div><div class="slot"></div>
 </div>
 
@@ -168,7 +168,7 @@ function check() {
     s => s.firstChild ? s.firstChild.dataset.value : ""
   );
 
-  const correct = ["water","+","oil","+","color","+","tablet","=","tablet"];
+  const correct = ["water","+","oil","+","color","+","tablet","=","firework"];
 
   if (values.join() === correct.join()) {
     document.getElementById("result").style.display = "block";
