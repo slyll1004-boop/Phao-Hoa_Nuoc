@@ -110,13 +110,18 @@ button {
     <div class="label">Nước</div>
   </div>
 
+  <div class="item" draggable="true" data-value="water">
+    <img src="ly_nhua.jpg">
+    <div class="label">Ly nhựa</div>
+  </div>
+
   <div class="item" draggable="true" data-value="+">
     <img src="kong.jpg">
     <div class="label">Cộng</div>
   </div>
 
   <div class="item" draggable="true" data-value="color">
-    <img src="mau_nuoc.jpg">
+    <img src="giot_mau.jpg">
     <div class="label">Màu</div>
   </div>
 
@@ -176,7 +181,7 @@ function check() {
     s => s.firstChild ? s.firstChild.dataset.value : ""
   );
 
-  const correct = ["water","+","oil","+","color","+","tablet","=","firework"];
+  const correct = ["water","+","water","+","oil","+","color","+","tablet","=","firework"];
 
   if (values.join() === correct.join()) {
     document.getElementById("result").style.display = "block";
