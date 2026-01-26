@@ -96,42 +96,58 @@ button {
 <!-- VẬT LIỆU -->
 <div id="items">
   <div class="item" draggable="true" data-value="oil">
-    <img src="chai_dau.jpg">
+    <img src="chai_dau.jpg" 
+    draggable="true" 
+    style="touch-action:none;">
     <div class="label">Dầu ăn</div>
   </div>
 
   <div class="item" draggable="true" data-value="+">
-    <img src="kong.jpg">
+    <img src="kong.jpg"
+    draggable="true" 
+    style="touch-action:none;">
     <div class="label">Cộng</div>
   </div>
 
   <div class="item" draggable="true" data-value="+">
-    <img src="kong.jpg">
+    <img src="kong.jpg"
+    draggable="true" 
+    style="touch-action:none;">
     <div class="label">Cộng</div>
   </div>
   
   <div class="item" draggable="true" data-value="water">
-    <img src="nuoc.jpg">
+    <img src="nuoc.jpg"
+    draggable="true" 
+    style="touch-action:none;">
     <div class="label">Nước</div>
   </div>
 
   <div class="item" draggable="true" data-value="water">
-    <img src="ly_nhua.jpg">
+    <img src="ly_nhua.jpg" 
+    draggable="true" 
+    style="touch-action:none;">
     <div class="label">Ly nhựa</div>
   </div>
 
   <div class="item" draggable="true" data-value="+">
-    <img src="kong.jpg">
+    <img src="kong.jpg"
+    draggable="true" 
+    style="touch-action:none;">
     <div class="label">Cộng</div>
   </div>
 
   <div class="item" draggable="true" data-value="color">
-    <img src="giot_mau.jpg">
+    <img src="giot_mau.jpg" 
+    draggable="true" 
+    style="touch-action:none;">
     <div class="label">Màu</div>
   </div>
 
   <div class="item" draggable="true" data-value="+">
-    <img src="kong.jpg">
+    <img src="kong.jpg" 
+    draggable="true" 
+    style="touch-action:none;">
     <div class="label">Cộng</div>
   </div>
 
@@ -141,12 +157,16 @@ button {
   </div>
 
   <div class="item" draggable="true" data-value="=">
-   <img src="bang.jpg">
+   <img src="bang.jpg" 
+    draggable="true" 
+    style="touch-action:none;">
     <div class="label">Dấu bằng</div>
   </div>
 
   <div class="item" draggable="true" data-value="firework">
-   <img src="phao-hoa_nuoc.jpg">
+   <img src="phao-hoa_nuoc.jpg"
+    draggable="true" 
+    style="touch-action:none;">
     <div class="label">Pháo hoa nước</div>
   </div>
   
@@ -193,6 +213,10 @@ function check() {
   }
 }
 </script>
-
+<script>
+document.addEventListener('touchmove', function(e) {
+  e.preventDefault();
+}, { passive: false });
+</script>
 </body>
 </html>
