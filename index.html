@@ -1,1 +1,196 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Pháo Hoa Nước Kỳ Diệu</title>
 
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(#eef4ff, #ffffff);
+  text-align: center;
+}
+
+h1 {
+  margin-top: 18px;
+}
+
+#items, #slots {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 20px;
+}
+
+.item, .slot {
+  width: 100px;
+  height: 120px;
+  border: 3px dashed #90caf9;
+  border-radius: 20px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.item {
+  cursor: grab;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+}
+
+.item img {
+  width: 60px;
+  height: auto;
+}
+
+.symbol {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.label {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #444;
+}
+
+.correct {
+  background: #e3f2fd !important;
+  border-color: #42a5f5 !important;
+}
+
+#result {
+  display: none;
+  margin-top: 25px;
+  font-size: 20px;
+  color: #1565c0;
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px 30px;
+  border-radius: 30px;
+  border: none;
+  background: #ff9800;
+  color: white;
+  font-size: 18px;
+}
+</style>
+</head>
+<style>
+  item {
+  touch-action: none;
+  user-select: none;
+}
+</style>
+
+<body>
+
+<h1>🎆 SỰ KÌ DIỆU CỦA PHÁO HOA </h1>
+<p>Kéo thả các vật để tạo ra pháo hoa nước</p>
+
+<!-- VẬT LIỆU -->
+<div id="items">
+  <div class="item" draggable="true" data-value="oil">
+    <img src="chai_dau.jpg">
+    <div class="label">Dầu ăn</div>
+  </div>
+
+  <div class="item" draggable="true" data-value="+">
+    <img src="kong.jpg">
+    <div class="label">Cộng</div>
+  </div>
+
+  <div class="item" draggable="true" data-value="+">
+    <img src="kong.jpg">
+    <div class="label">Cộng</div>
+  </div>
+  
+  <div class="item" draggable="true" data-value="water">
+    <img src="nuoc.jpg">
+    <div class="label">Nước</div>
+  </div>
+
+  <div class="item" draggable="true" data-value="water">
+    <img src="ly_nhua.jpg">
+    <div class="label">Ly nhựa</div>
+  </div>
+
+  <div class="item" draggable="true" data-value="+">
+    <img src="kong.jpg">
+    <div class="label">Cộng</div>
+  </div>
+
+  <div class="item" draggable="true" data-value="color">
+    <img src="giot_mau.jpg">
+    <div class="label">Màu</div>
+  </div>
+
+  <div class="item" draggable="true" data-value="+">
+    <img src="kong.jpg">
+    <div class="label">Cộng</div>
+  </div>
+
+  <div class="item" draggable="true" data-value="tablet">
+   <img src="xui.jpg">
+    <div class="label">Viên sủi</div>
+  </div>
+
+  <div class="item" draggable="true" data-value="=">
+   <img src="bang.jpg">
+    <div class="label">Dấu bằng</div>
+  </div>
+
+  <div class="item" draggable="true" data-value="firework">
+   <img src="phao-hoa_nuoc.jpg">
+    <div class="label">Pháo hoa nước</div>
+  </div>
+  
+<!-- Ô SẮP XẾP -->
+<div id="slots">
+  <div class="slot"></div><div class="slot"></div><div class="slot"></div>
+  <div class="slot"></div><div class="slot"></div><div class="slot"></div>
+  <div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div>
+</div>
+
+<!-- KẾT QUẢ -->
+<div id="result">
+  🌊✨ Sự kì diệu của pháo hoa đã xuất hiện!  
+</div>
+
+<button onclick="location.reload()">🔄 Chơi lại</button>
+
+<script>
+let draggedItem = null;
+
+document.querySelectorAll(".item").forEach(item => {
+  item.addEventListener("dragstart", () => draggedItem = item);
+});
+document.querySelectorAll(".slot").forEach(slot => {
+  slot.addEventListener("dragover", e => e.preventDefault());
+  slot.addEventListener("drop", () => {
+    if (!slot.firstChild) {
+      slot.appendChild(draggedItem);
+      check();
+    }
+  });
+});
+
+function check() {
+  const values = [...document.querySelectorAll(".slot")].map(
+    s => s.firstChild ? s.firstChild.dataset.value : ""
+  );
+
+  const correct = ["water","+","water","+","oil","+","color","+","tablet","=","firework"];
+
+  if (values.join() === correct.join()) {
+    document.getElementById("result").style.display = "block";
+    document.querySelectorAll(".slot").forEach(s => s.classList.add("correct"));
+  }
+}
+</script>
+
+</body>
+</html>
