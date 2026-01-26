@@ -202,18 +202,19 @@ document.addEventListener('touchend', () => {
     }
   });
 
-   activeItem = null;
+  activeItem = null;
 
   checkWin();
 });
 
 function checkWin() {
-   if (buildResult() === "Water","+","water","+","oil","+","Color","+","tablet","=","firework") 
-}
+  const items = document.querySelectorAll('.item');
+  const done = [...items].every(i => i.dataset.placed === 'true');
+
+  if (done) {
     alert('🎉 Hoàn thành!');
   }
 }
-
 </script>
 
 <script>
