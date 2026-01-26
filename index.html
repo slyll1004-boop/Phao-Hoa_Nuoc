@@ -173,34 +173,50 @@ button {
 <button onclick="location.reload()">🔄 Chơi lại</button>
 
 <script>
-let draggedItem = null;
+function isOverlap(a, b) {
+  const r1 = a.getBoundingClientRect();
+  const r2 = b.getBoundingClientRect();
 
-document.querySelectorAll(".item").forEach(item => {
-  item.addEventListener("dragstart", () => draggedItem = item);
-});
-document.querySelectorAll(".slot").forEach(slot => {
-  slot.addEventListener("dragover", e => e.preventDefault());
-  slot.addEventListener("drop", () => {
-    if (!slot.firstChild) {
-      slot.appendChild(draggedItem);
-      check();
+  return !(
+    r1.right < r2.left ||
+    r1.left > r2.right ||
+    r1.bottom < r2.top ||
+    r1.top > r2.bottom
+  );
+}
+
+document.addEventListener('touchend', () => {
+  if (!activeItem) return;
+
+  document.querySelectorAll('.slot').forEach(slot => {
+    if (isOverlap(activeItem, slot)) {
+      const type = activeItem.dataset.type;
+      const accept = slot.dataset.accept;
+
+      if (type === accept) {
+        const r = slot.getBoundingClientRect();
+        activeItem.style.left = r.left + 'px';
+        activeItem.style.top  = r.top + 'px';
+        activeItem.dataset.placed = 'true';
+      }
     }
   });
+
+  activeItem = null;
+
+  checkWin();
 });
 
-function check() {
-  const values = [...document.querySelectorAll(".slot")].map(
-    s => s.firstChild ? s.firstChild.dataset.value : ""
-  );
+function checkWin() {
+  const items = document.querySelectorAll('.item');
+  const done = [...items].every(i => i.dataset.placed === 'true');
 
-  const correct = ["water","+","water","+","oil","+","color","+","tablet","=","firework"];
-
-  if (values.join() === correct.join()) {
-    document.getElementById("result").style.display = "block";
-    document.querySelectorAll(".slot").forEach(s => s.classList.add("correct"));
+  if (done) {
+    alert('🎉 Hoàn thành!');
   }
 }
 </script>
+
 <script>
 let activeItem = null;
 let offsetX = 0;
