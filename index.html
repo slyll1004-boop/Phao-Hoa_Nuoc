@@ -85,6 +85,12 @@ button {
   user-select: none;
 }
 
+  slot {
+  width: 100px;
+  height: 100px;
+  border: 2px dashed #aaa;
+}
+
 </style>
 <body>
 
@@ -160,9 +166,10 @@ button {
   
 <!-- Ô SẮP XẾP -->
 <div id="slots">
-  <div class="slot"></div><div class="slot"></div><div class="slot"></div>
-  <div class="slot"></div><div class="slot"></div><div class="slot"></div>
-  <div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div>
+  <div class="slot"data-index="0"></div><div class="slot"data-index="1"></div><div class="slot"data-index="2"></div>
+  <div class="slot"data-index="3"></div><div class="slot"data-index="4"></div><div class="slot"data-index="5"></div>
+  <div class="slot"data-index="6"></div><div class="slot"data-index="7"></div><div class="slot"data-index="8"></div><div class="slot"data-index="9"></div>
+  <div class="slot"data-index="10"></div>
 </div>
 
 <!-- KẾT QUẢ -->
@@ -173,79 +180,50 @@ button {
 <button onclick="location.reload()">🔄 Chơi lại</button>
 
 <script>
-function isOverlap(a, b) {
-  const r1 = a.getBoundingClientRect();
-  const r2 = b.getBoundingClientRect();
+const slots = document.querySelectorAll(".slot");
+const items = document.querySelectorAll(".item");
 
-  return !(
-    r1.right < r2.left ||
-    r1.left > r2.right ||
-    r1.bottom < r2.top ||
-    r1.top > r2.bottom
-  );
-}
+let draggedItem = null;
 
-document.addEventListener('touchend', () => {
-  if (!activeItem) return;
-
-  document.querySelectorAll('.slot').forEach(slot => {
-    if (isOverlap(activeItem, slot)) {
-      const type = activeItem.dataset.type;
-      const accept = slot.dataset.accept;
-
-      if (type === accept) {
-        const r = slot.getBoundingClientRect();
-        activeItem.style.left = r.left + 'px';
-        activeItem.style.top  = r.top + 'px';
-        activeItem.dataset.placed = 'true';
-      }
-    }
+// chạm chọn vật
+items.forEach(item => {
+  item.addEventListener("pointerdown", () => {
+    draggedItem = item;
   });
-
-  activeItem = null;
-
-  checkWin();
 });
 
-function checkWin() {
-  const items = document.querySelectorAll('.item');
-  const done = [...items].every(i => i.dataset.placed === 'true');
+// thả vào ô
+slots.forEach(slot => {
+  slot.addEventListener("pointerup", () => {
+    if (!draggedItem) return;
 
-  if (done) {
-    alert('🎉 Hoàn thành!');
+    // snap vào ô
+    slot.innerHTML = "";
+    slot.appendChild(draggedItem);
+
+    // ghi nhận tên vật theo ô
+    slot.dataset.item = draggedItem.dataset.name;
+
+    draggedItem = null;
+    checkWin();
+  });
+});
+
+// xây lại chuỗi kết quả
+function buildResult() {
+  let result = [];
+  slots.forEach(slot => {
+    result.push(slot.dataset.item || "");
+  });
+  return result.join("+");
+}
+
+// LUẬT THẮNG
+function checkWin() {
+  if (buildResult() === "water","+","water","+","Oil","+","color","+","tablet","+","firework") {
+    alert("🎉 Chúc mừng! Bạn đã tạo ra pháo hoa nước!");
   }
 }
-</script>
-
-<script>
-let activeItem = null;
-let offsetX = 0;
-let offsetY = 0;
-
-document.querySelectorAll('.item').forEach(item => {
-  item.addEventListener('touchstart', e => {
-    e.preventDefault();
-    activeItem = item;
-
-    const touch = e.touches[0];
-    const rect = item.getBoundingClientRect();
-    offsetX = touch.clientX - rect.left;
-    offsetY = touch.clientY - rect.top;
-  });
-});
-
-document.addEventListener('touchmove', e => {
-  if (!activeItem) return;
-
-  const touch = e.touches[0];
-  activeItem.style.position = 'absolute';
-  activeItem.style.left = (touch.clientX - offsetX) + 'px';
-  activeItem.style.top  = (touch.clientY - offsetY) + 'px';
-});
-
-document.addEventListener('touchend', () => {
-  activeItem = null;
-});
 </script>
 </body>
 </html>
