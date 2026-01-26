@@ -80,18 +80,12 @@ button {
 </style>
 </head>
 <style>
-  img {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    user-select: none;
-    pointer-events: none;
-  }
-</style>
-html, body {
+  item {
   touch-action: none;
-  overscroll-behavior: none;
+  user-select: none;
 }
 
+</style>
 <body>
 
 <h1>🎆 SỰ KÌ DIỆU CỦA PHÁO HOA </h1>
@@ -101,76 +95,66 @@ html, body {
 <div id="items">
   <div class="item" draggable="true" data-value="oil">
     <img src="chai_dau.jpg" 
-    draggable="true" 
-    style="touch-action:none;">
+   class="item">
     <div class="label">Dầu ăn</div>
   </div>
 
   <div class="item" draggable="true" data-value="+">
     <img src="kong.jpg"
-    draggable="true" 
-    style="touch-action:none;">
+     class="item">
     <div class="label">Cộng</div>
   </div>
 
   <div class="item" draggable="true" data-value="+">
     <img src="kong.jpg"
-    draggable="true" 
-    style="touch-action:none;">
+    class="item">
     <div class="label">Cộng</div>
   </div>
   
   <div class="item" draggable="true" data-value="water">
     <img src="nuoc.jpg"
-    draggable="true" 
-    style="touch-action:none;">
+    d class="item">
     <div class="label">Nước</div>
   </div>
 
   <div class="item" draggable="true" data-value="water">
     <img src="ly_nhua.jpg" 
-    draggable="true" 
-    style="touch-action:none;">
+     class="item">
     <div class="label">Ly nhựa</div>
   </div>
 
   <div class="item" draggable="true" data-value="+">
     <img src="kong.jpg"
-    draggable="true" 
-    style="touch-action:none;">
+    class="item">
     <div class="label">Cộng</div>
   </div>
 
   <div class="item" draggable="true" data-value="color">
     <img src="giot_mau.jpg" 
-    draggable="true" 
-    style="touch-action:none;">
+    class="item">
     <div class="label">Màu</div>
   </div>
 
   <div class="item" draggable="true" data-value="+">
     <img src="kong.jpg" 
-    draggable="true" 
-    style="touch-action:none;">
+    class="item">
     <div class="label">Cộng</div>
   </div>
 
   <div class="item" draggable="true" data-value="tablet">
-   <img src="xui.jpg">
+   <img src="xui.jpg"class="item">>
     <div class="label">Viên sủi</div>
   </div>
 
   <div class="item" draggable="true" data-value="=">
    <img src="bang.jpg" 
-    draggable="true" 
-    style="touch-action:none;">
+    class="item">
     <div class="label">Dấu bằng</div>
   </div>
 
   <div class="item" draggable="true" data-value="firework">
    <img src="phao-hoa_nuoc.jpg"
-    draggable="true" 
-    style="touch-action:none;">
+    class="item">
     <div class="label">Pháo hoa nước</div>
   </div>
   
@@ -218,9 +202,34 @@ function check() {
 }
 </script>
 <script>
-document.addEventListener('touchmove', function(e) {
-  e.preventDefault();
-}, { passive: false });
+let activeItem = null;
+let offsetX = 0;
+let offsetY = 0;
+
+document.querySelectorAll('.item').forEach(item => {
+  item.addEventListener('touchstart', e => {
+    e.preventDefault();
+    activeItem = item;
+
+    const touch = e.touches[0];
+    const rect = item.getBoundingClientRect();
+    offsetX = touch.clientX - rect.left;
+    offsetY = touch.clientY - rect.top;
+  });
+});
+
+document.addEventListener('touchmove', e => {
+  if (!activeItem) return;
+
+  const touch = e.touches[0];
+  activeItem.style.position = 'absolute';
+  activeItem.style.left = (touch.clientX - offsetX) + 'px';
+  activeItem.style.top  = (touch.clientY - offsetY) + 'px';
+});
+
+document.addEventListener('touchend', () => {
+  activeItem = null;
+});
 </script>
 </body>
 </html>
