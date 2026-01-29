@@ -11,6 +11,22 @@ body {
   text-align: center;
 }
 
+.item, .slot {
+  width: 140px;        /* to hơn */
+  height: 160px;
+  border: 3px dashed #90caf9;
+  border-radius: 22px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.item img {
+  width: 90px;         /* ảnh to hơn */
+  height: auto;
+}
 h1 {
   margin-top: 18px;
 }
@@ -98,16 +114,6 @@ button {
     <div class="label">Dầu ăn</div>
   </div>
 
-  <div class="item" draggable="true" data-value="+">
-    <img src="kong.jpg">
-    <div class="label">Cộng</div>
-  </div>
-
-  <div class="item" draggable="true" data-value="+">
-    <img src="kong.jpg">
-    <div class="label">Cộng</div>
-  </div>
-  
   <div class="item" draggable="true" data-value="water">
     <img src="nuoc.jpg">
     <div class="label">Nước</div>
@@ -118,19 +124,9 @@ button {
     <div class="label">Ly nhựa</div>
   </div>
 
-  <div class="item" draggable="true" data-value="+">
-    <img src="kong.jpg">
-    <div class="label">Cộng</div>
-  </div>
-
   <div class="item" draggable="true" data-value="color">
     <img src="giot_mau.jpg">
     <div class="label">Màu</div>
-  </div>
-
-  <div class="item" draggable="true" data-value="+">
-    <img src="kong.jpg">
-    <div class="label">Cộng</div>
   </div>
 
   <div class="item" draggable="true" data-value="tablet">
@@ -152,7 +148,7 @@ button {
 <div id="slots">
   <div class="slot"></div><div class="slot"></div><div class="slot"></div>
   <div class="slot"></div><div class="slot"></div><div class="slot"></div>
-  <div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div>
+  <div class="slot"></div>
 </div>
 
 <!-- KẾT QUẢ -->
@@ -183,7 +179,7 @@ function check() {
     s => s.firstChild ? s.firstChild.dataset.value : ""
   );
 
-  const correct = ["water","+","water","+","oil","+","color","+","tablet","=","firework"];
+  const correct = ["water","water","oil","color","tablet","=","firework"];
 
   if (values.join() === correct.join()) {
     document.getElementById("result").style.display = "block";
